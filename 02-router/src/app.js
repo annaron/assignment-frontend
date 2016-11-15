@@ -3,8 +3,8 @@ import router from './router'
 import homeTpl from './templates/home.hbs'
 import contactTpl from './templates/contact.hbs'
 import notFoundTpl from './templates/not-found.hbs'
-import magnusTpl from './templates/magnus.hbs'
-import sergeyTpl from './templates/sergey.hbs'
+import playersTpl from './templates/player.hbs'
+
 
 const $app = $('#app')
 
@@ -29,19 +29,21 @@ function notFound() {
   $app.html(notFoundTpl())
 }
 
-function players(player) {
 
-
-	if(player=="magnus")
- 		 $app.html(magnusTpl);
-	if(player=="sergey")
-		 $app.html(sergeyTpl);
-
+function players() {
+	var current =window.location.href;
+	var player = current.split('/');
+	var player = player[4];
+	
+  	$app.html(playersTpl({
+    	player
+  }))
 }
+
 
 router('/', index)
 router('/contact', contact)
-router('/players/:player', context => {const player=context.params.player})
+router('/players/:player', players)
 router('*', notFound)
 router()
 
@@ -49,5 +51,6 @@ window.addEventListener('load', function(event){
 	router(window.location.pathname);
 })
 
-
-
+window.addEventListener('popstate', function(event){
+	router(window.location.pathname);
+	})

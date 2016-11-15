@@ -7,28 +7,50 @@ export default function(href, name) {
 		routes[href]=name;
 	else if(name==undefined&&href!=undefined)
 	{
-		if(!isRoute(href)){
+		if(!isFunction(href)&&!checkdynamic(href)){
+			
 			defaultWay();
 		}
-		else{
+	
+		else {
 			goTo(href);
 		}
 	}
 }
 
 
-function isRoute(href)
+function isFunction(href)
 {
-	if(typeof routes[href]=='function') 
-		return true; 
-	else
-		return false;
+	return(typeof routes[href]=='function') 
+}
+
+function checkdynamic(href)
+{
+	var regex = /\/players\/[a-z]*$/;
+	return(regex.test(href));
+	
+}
+
+function dynamic(href)
+{
+	
+	routes['/players/:player']();
+
 }
 
 function goTo(href) {
+	
 	var obj = {href: href};
 	window.history.pushState(obj, null, href);
-	routes[href](); 
+
+	if(checkdynamic(href))
+		dynamic(href);
+	else 
+		routes[href](); 
+	
+	
+	
+
 }
 
 function defaultWay(href) {
@@ -37,6 +59,7 @@ function defaultWay(href) {
 	routes['*'](); //notFound
 
 }
+
 
 
 
