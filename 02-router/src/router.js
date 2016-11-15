@@ -31,25 +31,15 @@ function checkdynamic(href)
 	
 }
 
-function dynamic(href)
-{
-	
-	routes['/players/:player']();
-
-}
-
 function goTo(href) {
 	
 	var obj = {href: href};
 	window.history.pushState(obj, null, href);
 
 	if(checkdynamic(href))
-		dynamic(href);
+		routes['/players/:player']();
 	else 
 		routes[href](); 
-	
-	
-	
 
 }
 
