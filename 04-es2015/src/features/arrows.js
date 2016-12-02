@@ -16,4 +16,16 @@ export function es5() {
 }
 
 export function es6() {
+
+ var obj = {
+  arr: [1, 2, 3, 4, 5],
+  result: 0,
+  sum: () => {
+    obj.result = obj.arr.reduce((sum, x) => sum + x)
+  }
+ }
+
+ obj.sum()
+
+ return obj
 }
