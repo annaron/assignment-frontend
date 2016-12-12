@@ -1,3 +1,5 @@
+require("babel-polyfill");
+
 export function es5(n) {
   function counter(n) {
     var cnt = 0
@@ -16,12 +18,16 @@ export function es5(n) {
 
 // https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Statements/function*
 export function es6(n) {
-  function* counter(n) {
-    var index = 0
-    while(index<n){
-      yield index+=1
+  function* counter(n){
+   var index = 1;
+
+    while(index <= n){
+      yield index++;
     }
+    return index
   }
 
   return counter(n)
 }
+
+

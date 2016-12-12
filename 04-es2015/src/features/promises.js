@@ -5,4 +5,6 @@ export function es5(cb) {
 }
 
 export function es6() {
+	let promise = new Promise((resolve, reject) => esolve(cb(null, 10)));
+	return promise;
 }
